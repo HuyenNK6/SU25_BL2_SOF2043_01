@@ -43,7 +43,7 @@ public class DrinkView extends javax.swing.JFrame {
                 drink.getDiscount(),
                 drink.getImage(),
                 drink.isAvailable() ? "Available":"Out of stock",
-                drink.getCategoryId()
+                drink.getCategoryId() //=> về xử lý: hiển thị tên category
             };
             model.addRow(rowData);//thêm dữ liệu vào model bảng
         }
@@ -351,7 +351,7 @@ public class DrinkView extends javax.swing.JFrame {
         //1. Tạo đối tượng Drink lấy thông tin từ trên form
         Drink drink = this.getForm();
         //2. Thêm đối tượng vào DB
-        drinkRepo.add(drink);
+        drinkRepo.add(drink); //xử lý: confirm trước khi thêm & thông báo thành công/thất bại
         //3. Load lại table
         this.fillToTable();
      
