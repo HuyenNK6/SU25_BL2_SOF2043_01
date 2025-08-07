@@ -285,8 +285,18 @@ public class DrinkView extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Sort by Unit price");
 
@@ -356,6 +366,26 @@ public class DrinkView extends javax.swing.JFrame {
         this.fillToTable();
      
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+         //1. Tạo đối tượng Drink lấy thông tin từ trên form
+        Drink drink = this.getForm();
+        //2. Cập nhật thông tin đối tượng vào DB
+        drinkRepo.update(drink); 
+        //3. Load lại table
+        this.fillToTable();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        //1. Tạo đối tượng Drink lấy thông tin từ trên form
+        Drink drink = this.getForm();
+        //2. Xóa đối tượng khỏi DB
+        drinkRepo.delete(drink.getId()); 
+        //3. Load lại table
+        this.fillToTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments

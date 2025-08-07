@@ -27,10 +27,26 @@ public class DrinkRepository {
                                  ([Id],[Name],[UnitPrice],[Discount],[Image],[Available],[CategoryId])
                       VALUES (?,?,?,?,?,?,?)
                        """;
+    String updateSql = """
+                      UPDATE [dbo].[Drinks]
+                         SET [Name] = ?
+                            ,[UnitPrice] = ?
+                            ,[Discount] = ?
+                            ,[Image] = ?
+                            ,[Available] = ?
+                            ,[CategoryId] = ?
+                       WHERE Id = ?
+                      """;
+    String deleteSql = """
+                      DELETE FROM [dbo].[Drinks]
+                             WHERE Id = ?
+                      """;
+
     public List<Drink> getAll() {
         //XJdbc hay XQuery? => XQuery => getBeanList
         return XQuery.getBeanList(Drink.class, getAllSql);
     }
+
     public int add(Drink drink) { //lưu ý: đưa giá trị vào values đúng thứ tự ?
         Object[] values = {
             drink.getId(),
@@ -42,6 +58,22 @@ public class DrinkRepository {
             drink.getCategoryId()
         };
         return XJdbc.executeUpdate(insertSql, values);//trả về số bản ghi được thực hiện
+    }
+
+    public int update(Drink drink) {
+        Object[] values = {
+            drink.getName(),
+            drink.getUnitPrice(),
+            drink.getDiscount(),
+            drink.getImage(),
+            drink.isAvailable(),
+            drink.getCategoryId(),
+            drink.getId()
+        };
+        return XJdbc.executeUpdate(updateSql, values);//trả về số bản ghi được thực hiện
+    }
+    public int delete(String id) {
+        return XJdbc.executeUpdate(deleteSql, id);//trả về số bản ghi được thực hiện
     }
 
     // test trước
